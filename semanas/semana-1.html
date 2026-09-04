@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 1 — Cálculo 1</title>
+<meta name="description" content="Roteiro de estudos, textos, vídeos e listas da Semana 1 de Cálculo 1 (UnB, 2/2026): Introdução ao Cálculo.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Cálculo 1</a>
+    <nav class="navlinks">
+      <a href="../index.html#cronograma">Cronograma</a>
+      <a href="../index.html#geral">Material geral</a>
+      <a href="../index.html#provas">Provas</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e quadro negro">papel / quadro negro</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="../index.html">Cálculo 1</a>
+    <span class="sep">/</span>
+    <a href="../index.html#cronograma">Cronograma</a>
+    <span class="sep">/</span>
+    <span class="current">Semana 1</span>
+  </nav>
+
+  <header class="hero" style="padding:24px 0 8px;">
+    <span class="hero-tag">capítulo 1 — limites e continuidade</span>
+    <h1 style="font-size:clamp(2rem,5vw,2.8rem);">Semana 1 — Introdução ao Cálculo</h1>
+    <p class="sub">09 a 15 de agosto · Exposição de problemas concretos que podem ser resolvidos com as ferramentas do cálculo.</p>
+  </header>
+
+  <section class="lesson">
+    <div class="lesson-open">
+      <span class="hero-tag">aula</span>
+    </div>
+    <h2 class="lesson-title">De onde vem o Cálculo</h2>
+    <p class="lesson-lede">Antes de abrir o roteiro oficial, vale entender por que essa matéria existe. As três ideias abaixo — velocidade instantânea, reta tangente e perímetro do círculo — são os três textos da semana, só que explicados devagar, com exemplos que você pode mexer com a mão.</p>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">1</span> O problema que o ensino médio não resolve</h3>
+      <p>No ensino médio você aprendeu a calcular velocidade de duas formas: se o carro anda a velocidade <em>constante</em>, <span>\(v = \Delta s/\Delta t\)</span>; se a aceleração é <em>constante</em>, existe uma fórmula pronta pro movimento uniformemente variado. Ambas exigem que a posição <span>\(s(t)\)</span> seja um <span class="gterm" data-g="polinomio">polinômio</span> de grau 1 ou 2.</p>
+      <p>Mas o que acontece se <span>\(s(t) = t^3\)</span>? Não existe fórmula de ensino médio pra isso. Essa é exatamente a pergunta que abre o curso inteiro: <strong>qual é a velocidade de um carro no instante <span>\(t=2\)</span>, se sua posição é <span>\(s(t)=t^3\)</span>?</strong></p>
+      <div class="qa-box">
+        <p class="q">Por que isso importa?</p>
+        <p style="margin:0;">Porque quase nenhum fenômeno real anda em linha reta com aceleração constante — populações crescem de forma curva, remédios se dissolvem de forma curva, planetas orbitam em elipses. Cálculo é a ferramenta que funciona pra qualquer curva, não só pra retas e parábolas.</p>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">2</span> A saída: aproximar bem, e ver aonde isso leva</h3>
+      <p>Não sabemos calcular a velocidade <em>exata</em> em <span>\(t=2\)</span>, mas sabemos calcular a velocidade <em>média</em> entre dois instantes — é só distância dividida por tempo. A ideia central do Cálculo, que vai aparecer o semestre inteiro, é: <strong>use uma aproximação que você sabe calcular, e observe o que acontece quando ela fica cada vez mais precisa.</strong></p>
+      <p>Chamando de <span>\(h\)</span> o intervalo de tempo depois de <span>\(t=2\)</span>, a velocidade média entre <span>\(t=2\)</span> e <span>\(t=2+h\)</span> é</p>
+      <p>\[ vm_2(h) = \frac{s(2+h)-s(2)}{h} = \frac{(2+h)^3 - 8}{h}. \]</p>
+
+      <div class="widget-box">
+        <div class="widget-label">experimente você mesmo</div>
+        <p style="margin-bottom:4px;">Mexa no controle e veja a velocidade média se aproximar de um número, à medida que <span>\(h\)</span> encolhe.</p>
+        <div class="widget-grid">
+          <table class="widget-table" id="vTable">
+            <thead><tr><th>h</th><th>t = 2+h</th><th>velocidade média</th></tr></thead>
+            <tbody>
+              <tr data-h="2"><td>2</td><td>4</td><td>28</td></tr>
+              <tr data-h="1"><td>1</td><td>3</td><td>19</td></tr>
+              <tr data-h="0.5"><td>0,5</td><td>2,5</td><td>15,25</td></tr>
+              <tr data-h="0.1"><td>0,1</td><td>2,1</td><td>12,61</td></tr>
+              <tr data-h="0.01"><td>0,01</td><td>2,01</td><td>12,0601</td></tr>
+              <tr data-h="0.001"><td>0,001</td><td>2,001</td><td>12,006001</td></tr>
+            </tbody>
+          </table>
+          <div class="widget-controls">
+            <label for="hSlider">h = <span id="hValue">1</span></label>
+            <input type="range" id="hSlider" min="-3" max="0.4771" step="0.001" value="0">
+            <div class="widget-readout">
+              <div>t = 2 + h = <span id="tValue">3</span></div>
+              <div>velocidade média = <span class="big" id="vmValue">19</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">quanto menor o h, mais perto de <strong>12</strong> — a velocidade instantânea em t=2.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>Fatorando <span>\((2+h)^3 - 2^3 = h(12+6h+h^2)\)</span>, o <span>\(h\)</span> do numerador cancela com o <span>\(h\)</span> do denominador, e sobra <span>\(vm_2(h) = 12+6h+h^2\)</span> — uma expressão que não tem mais problema em <span>\(h=0\)</span>. Por isso ela se aproxima de <strong>12</strong>. Escrevemos isso como</p>
+      <p>\[ \lim_{h\to 0} \frac{s(2+h)-s(2)}{h} = 12. \]</p>
+      <p>Essa é a definição de <strong>velocidade instantânea</strong>: o <span class="gterm" data-g="limite">limite</span> da velocidade média, quando o intervalo de tempo encolhe até (quase) zero.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">3</span> O mesmo truque, visto geometricamente: a reta tangente</h3>
+      <p>Troque "velocidade" por "<span class="gterm" data-g="inclinacao">inclinação</span>" e "instante" por "ponto do gráfico", e a mesmíssima conta ganha um significado geométrico. A reta que passa por dois pontos de uma curva se chama <span class="gterm" data-g="reta-secante">reta secante</span>; sua inclinação é exatamente a taxa de variação média entre esses dois pontos. Quando os dois pontos se aproximam um do outro, a reta secante gira até virar a <span class="gterm" data-g="reta-tangente">reta tangente</span> — e a inclinação dela é a taxa de variação instantânea.</p>
+      <div class="example-box">
+        <p class="label">exemplo</p>
+        <p style="margin:0;">Pra <span>\(f(x) = x^2\)</span> no ponto <span>\(a=2\)</span>: a inclinação da secante entre <span>\(x=2\)</span> e <span>\(x=2+h\)</span> é <span>\(\frac{(2+h)^2-4}{h} = 4+h\)</span>, que se aproxima de <strong>4</strong> quando <span>\(h\to 0\)</span>. A reta tangente em <span>\((2,4)\)</span> é <span>\(y = 4x-4\)</span>.</p>
+      </div>
+
+      <div class="widget-box">
+        <div class="widget-label">arraste o controle</div>
+        <p style="margin-bottom:4px;">A reta vermelha é a secante ligando <span>\((2,4)\)</span> a <span>\((2+h,(2+h)^2)\)</span>. A pontilhada é a tangente. Empurre h pra perto de 0 e veja a secante "virar" a tangente.</p>
+        <div class="widget-grid">
+          <svg id="tangentSvg" class="widget-svg" viewBox="0 0 400 320" aria-label="Gráfico de x ao quadrado com reta secante e reta tangente"></svg>
+          <div class="widget-controls">
+            <label for="hSlider2">h = <span id="hValue2">1.50</span></label>
+            <input type="range" id="hSlider2" min="-1.8" max="1.8" step="0.01" value="1.5">
+            <div class="widget-readout">
+              <div>inclinação da secante = <span class="big" id="slopeValue">5.50</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">a tangente (pontilhada) tem inclinação fixa <strong>4</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-box">
+        <details>
+          <summary class="q" style="cursor:pointer;">Verifique se entendeu: por que a reta secante nunca pode ter <span>\(h=0\)</span>?</summary>
+          <p style="margin:8px 0 0;">Porque com <span>\(h=0\)</span> os dois pontos <span>\((a,f(a))\)</span> e <span>\((a+h,f(a+h))\)</span> viram o mesmo ponto — e não dá pra traçar uma reta usando um único ponto. É por isso que sempre calculamos o limite quando <span>\(h\)</span> se aproxima de zero, e nunca substituímos <span>\(h=0\)</span> diretamente.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">4</span> Uma pergunta muito mais antiga: o perímetro do círculo</h3>
+      <p>Essa ideia de "aproximar e ver o limite" é bem mais velha que o Cálculo — os gregos já a usavam. Pra saber o perímetro de uma circunferência de raio <span>\(r\)</span>, inscrevemos um polígono regular de <span>\(n\)</span> lados e calculamos o perímetro dele, que é fácil: é só geometria de triângulos. O perímetro do polígono é</p>
+      <p>\[ p_n = 2rn\,\mathrm{sen}\!\left(\frac{\pi}{n}\right). \]</p>
+      <p>Quanto mais lados o polígono tem, mais ele se parece com o círculo — então <span>\(p_n\)</span> deveria se aproximar do perímetro real <span>\(P\)</span>.</p>
+
+      <div class="widget-box">
+        <div class="widget-label">aumente o número de lados</div>
+        <div class="widget-grid">
+          <svg id="polygonSvg" class="widget-svg" viewBox="0 0 280 280" aria-label="Polígono regular inscrito em uma circunferência"></svg>
+          <div class="widget-controls">
+            <label for="nSlider">n = <span id="nValue">6</span> lados</label>
+            <input type="range" id="nSlider" min="3" max="80" step="1" value="6">
+            <div class="widget-readout">
+              <div>p<sub>n</sub> (raio 1) = <span class="big" id="pnValue">6.0000</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">o valor verdadeiro é <strong>2π ≈ 6,2832</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>Pra provar que isso funciona, é preciso entender o comportamento de <span>\(n\,\mathrm{sen}(\pi/n)\)</span> quando <span>\(n\to\infty\)</span> — uma indeterminação do tipo <span>\(0\cdot\infty\)</span> (o seno vai a zero, o <span>\(n\)</span> vai a infinito). Reescrevendo,</p>
+      <p>\[ p_n = 2\pi r \cdot \frac{\mathrm{sen}(\pi/n)}{\pi/n}, \]</p>
+      <p>e tudo se resume a saber o que acontece com <span>\(\frac{\mathrm{sen}(x)}{x}\)</span> quando <span>\(x\to 0\)</span>. Numericamente essa razão se aproxima de <strong>1</strong> — é o famoso <strong>limite trigonométrico fundamental</strong>, <span>\(\lim_{x\to 0}\frac{\mathrm{sen}(x)}{x}=1\)</span>, que será demonstrado com rigor em breve. Aceitando isso, <span>\(P = \lim_{n\to\infty} p_n = 2\pi r\)</span> — a fórmula que você já conhecia desde pequeno, só que agora com uma justificativa de verdade.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">5</span> A ideia por trás de tudo: o limite</h3>
+      <p>Repare que os três problemas — velocidade, reta tangente, perímetro — são <em>o mesmo problema</em> disfarçado três vezes: uma expressão que não pode ser calculada diretamente em um ponto (dá <span>\(0/0\)</span> ou <span>\(0\cdot\infty\)</span>), mas que se aproxima claramente de um número quando alguma variável se aproxima de um valor. Esse número é o <strong>limite</strong>, e ele é o objeto central do resto do módulo 1. Nas próximas semanas você vai aprender a calculá-lo com rigor — sem depender de tabelas ou desenhos, como fizemos aqui.</p>
+      <div class="qa-box">
+        <details>
+          <summary class="q" style="cursor:pointer;">Verifique se entendeu: o que os três exemplos desta semana têm em comum?</summary>
+          <p style="margin:8px 0 0;">Todos calculam uma <strong>razão de duas quantidades que vão a zero</strong> (ou, no caso do círculo, um produto de algo que vai a zero por algo que vai a infinito), e usam manipulação algébrica pra descobrir que, apesar da indeterminação, a expressão se aproxima de um número bem definido. Essa técnica — simplificar antes de "tomar o limite" — vai reaparecer o semestre inteiro.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📋 Roteiro de Estudos <span class="count">guia da semana</span></h2>
+    <p class="material-intro">A ordem sugerida pra estudar tudo abaixo sem atropelos — vale abrir primeiro.</p>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana1/roteiro-estudos-01.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📋</span>
+        <span class="file-meta"><span class="file-title">Roteiro de Estudos — Semana 1</span><span class="file-sub">PDF · como usar os materiais abaixo</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📖 Textos <span class="count">3 textos</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana1/velocidade-instantanea.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 1 — Velocidade Instantânea</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/velocidade-instantanea-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Velocidade Instantânea — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/reta-tangente.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 2 — A Reta Tangente</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/reta-tangente-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">A Reta Tangente — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/circulo.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 3 — O Perímetro do Círculo</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/circulo-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">O Perímetro do Círculo — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>🎬 Vídeos <span class="count">4 vídeos</span></h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/NHnXpPxnzEQ" title="Retas paralelas e perpendiculares" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Retas paralelas e perpendiculares</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/xUb149lSis0" title="Velocidade Instantânea" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Velocidade Instantânea (parte 1)</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/HEcY_rvdUlM" title="Velocidade Instantânea" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Velocidade Instantânea (parte 2)</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/eMw8z9C2l6I" title="Propriedade Geométrica da Hipérbole" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Propriedade Geométrica da Hipérbole</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📝 Listas <span class="count">exercícios e aplicação</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana1/semana_01ex.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Exercícios 01</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/semana_01ap.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Aplicação 01</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana1/semana_01ap_gab.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Aplicação 01 — gabarito</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="week-footer-nav">
+    <a class="disabled" href="#">← Semana anterior</a>
+    <a href="semana-2.html">Semana 2 →</a>
+  </div>
+</main>
+
+<footer>
+  <p class="hand">bons estudos!</p>
+  <p>Material tirado do Moodle de Cálculo 1 (UnB, 2/2026) e do repositório público <a href="http://mat.unb.br/calculo1m/" target="_blank" rel="noopener">mat.unb.br/calculo1m</a>.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('calc1-theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('calc1-theme', next);
+  });
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
+  });
+
+  // widget 1 — velocidade média
+  (function(){
+    const slider = document.getElementById('hSlider');
+    const hValue = document.getElementById('hValue');
+    const tValue = document.getElementById('tValue');
+    const vmValue = document.getElementById('vmValue');
+    const rows = [...document.querySelectorAll('#vTable tbody tr')];
+    function fmt(n, d){ return n.toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d}); }
+    function update(){
+      const h = Math.pow(10, parseFloat(slider.value));
+      const t = 2 + h;
+      const vm = ((2+h)**3 - 8) / h;
+      hValue.textContent = h < 0.01 ? h.toExponential(2) : fmt(h, h < 1 ? 3 : 2);
+      tValue.textContent = fmt(t, h < 1 ? 3 : 2);
+      vmValue.textContent = fmt(vm, 3);
+      let closest = rows[0], best = Infinity;
+      rows.forEach(r => {
+        const d = Math.abs(Math.log10(parseFloat(r.dataset.h)) - Math.log10(h));
+        if(d < best){ best = d; closest = r; }
+      });
+      rows.forEach(r => r.classList.toggle('is-active', r === closest && best < 0.15));
+    }
+    slider.addEventListener('input', update);
+    update();
+  })();
+
+  // widget 2 — secante para tangente, f(x) = x^2
+  (function(){
+    const svg = document.getElementById('tangentSvg');
+    const slider = document.getElementById('hSlider2');
+    const hValue = document.getElementById('hValue2');
+    const slopeValue = document.getElementById('slopeValue');
+    const W = 400, H = 320, pad = 30;
+    const xMin = -0.3, xMax = 4.3, yMin = -1, yMax = 19;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const f = x => x*x;
+
+    let curvePts = [];
+    for(let x = xMin; x <= xMax; x += 0.05){ curvePts.push(`${sx(x)},${sy(f(x))}`); }
+
+    function draw(h){
+      if(Math.abs(h) < 0.03) h = h < 0 ? -0.03 : 0.03;
+      const a = 2, fa = 4;
+      const b = a + h, fb = f(b);
+      const slope = (fb - fa) / h;
+      // extend secant across viewBox
+      const x1 = xMin, y1 = fa + slope*(x1 - a);
+      const x2 = xMax, y2 = fa + slope*(x2 - a);
+      const tx1 = xMin, ty1 = fa + 4*(tx1 - a);
+      const tx2 = xMax, ty2 = fa + 4*(tx2 - a);
+
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="${sx(0)}" y1="${sy(yMin)}" x2="${sx(0)}" y2="${sy(yMax)}" stroke="var(--rule)" stroke-width="1"/>
+        <polyline points="${curvePts.join(' ')}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <line x1="${sx(tx1)}" y1="${sy(ty1)}" x2="${sx(tx2)}" y2="${sy(ty2)}" stroke="var(--ink-soft)" stroke-width="1.5" stroke-dasharray="5,5"/>
+        <line x1="${sx(x1)}" y1="${sy(y1)}" x2="${sx(x2)}" y2="${sy(y2)}" stroke="var(--rose)" stroke-width="2.5"/>
+        <circle cx="${sx(a)}" cy="${sy(fa)}" r="4.5" fill="var(--gold)"/>
+        <circle cx="${sx(b)}" cy="${sy(fb)}" r="4.5" fill="var(--rose)"/>
+        <text x="${sx(a)+8}" y="${sy(fa)-8}" font-size="12" fill="var(--ink)">A=(2,4)</text>
+      `;
+      slopeValue.textContent = slope.toFixed(2);
+      hValue.textContent = parseFloat(slider.value).toFixed(2);
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(1.5);
+  })();
+
+  // widget 3 — polígono inscrito
+  (function(){
+    const svg = document.getElementById('polygonSvg');
+    const slider = document.getElementById('nSlider');
+    const nValue = document.getElementById('nValue');
+    const pnValue = document.getElementById('pnValue');
+    const cx = 140, cy = 140, R = 110;
+
+    function draw(n){
+      let pts = [];
+      for(let k = 0; k < n; k++){
+        const ang = -Math.PI/2 + 2*Math.PI*k/n;
+        pts.push(`${cx + R*Math.cos(ang)},${cy + R*Math.sin(ang)}`);
+      }
+      const pn = 2 * n * Math.sin(Math.PI/n);
+      svg.innerHTML = `
+        <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--ink-soft)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <polygon points="${pts.join(' ')}" fill="var(--lilac-soft)" stroke="var(--lilac)" stroke-width="2.5"/>
+      `;
+      nValue.textContent = n;
+      pnValue.textContent = pn.toFixed(4);
+    }
+    slider.addEventListener('input', () => draw(parseInt(slider.value)));
+    draw(6);
+  })();
+</script>
+<script src="../glossario.js"></script>
+</body>
+</html>

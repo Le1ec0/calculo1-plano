@@ -4,283 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cálculo 1 — caderno de acompanhamento</title>
-<meta name="description" content="Cronograma e plano de estudo do curso de Cálculo 1 da UnB, 2º semestre de 2026.">
+<meta name="description" content="Cronograma, plano de estudo e materiais do curso de Cálculo 1 da UnB, 2º semestre de 2026.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#FBF6EC;
-    --paper-raised:#FFFDF8;
-    --ink:#2E2A26;
-    --ink-soft:#655F55;
-    --rule:#B7CBE0;
-    --margin:#D98A8A;
-    --lilac:#8F72B8;
-    --lilac-soft:#EDE6F5;
-    --rose:#C96B77;
-    --rose-soft:#F6E4E4;
-    --sage:#5C8358;
-    --sage-soft:#E5EEE1;
-    --gold:#B9822C;
-    --gold-soft:#F6E9D0;
-    --shadow:0 8px 18px -10px rgba(46,42,38,.35);
-    --spine-svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='56'%3E%3Cpath d='M7,0 C13,14 1,28 7,42 C13,50 7,56 7,56' fill='none' stroke='%23c9bda3' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  }
-  [data-theme="dark"]{
-    --paper:#1E2E27;
-    --paper-raised:#243830;
-    --ink:#ECE7DA;
-    --ink-soft:#B7AF9E;
-    --rule:#3C5A4C;
-    --margin:#C97D7D;
-    --lilac:#C4AEE8;
-    --lilac-soft:#31463E;
-    --rose:#E3A0A8;
-    --rose-soft:#3A2E30;
-    --sage:#9FC79A;
-    --sage-soft:#2C4136;
-    --gold:#E7C170;
-    --gold-soft:#3E3624;
-    --shadow:0 8px 20px -10px rgba(0,0,0,.5);
-    --spine-svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='56'%3E%3Cpath d='M7,0 C13,14 1,28 7,42 C13,50 7,56 7,56' fill='none' stroke='%23486456' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#1E2E27; --paper-raised:#243830; --ink:#ECE7DA; --ink-soft:#B7AF9E;
-      --rule:#3C5A4C; --margin:#C97D7D; --lilac:#C4AEE8; --lilac-soft:#31463E;
-      --rose:#E3A0A8; --rose-soft:#3A2E30; --sage:#9FC79A; --sage-soft:#2C4136;
-      --gold:#E7C170; --gold-soft:#3E3624; --shadow:0 8px 20px -10px rgba(0,0,0,.5);
-      --spine-svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='56'%3E%3Cpath d='M7,0 C13,14 1,28 7,42 C13,50 7,56 7,56' fill='none' stroke='%23486456' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    }
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001s !important; transition-duration:.001s !important;} }
-
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Nunito',sans-serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    margin:0 0 .3em;
-    color:var(--ink);
-  }
-  a{color:var(--lilac);}
-  p{margin:0 0 1em;}
-  .hand{font-family:'Caveat',cursive;}
-
-  .wrap{max-width:880px;margin:0 auto;padding:0 24px;}
-
-  /* nav */
-  .topbar{
-    position:sticky; top:0; z-index:20;
-    background:var(--paper-raised);
-    border-bottom:2px solid var(--rule);
-    backdrop-filter:blur(4px);
-  }
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px;gap:16px;flex-wrap:wrap;}
-  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;}
-  .navlinks{display:flex;gap:18px;flex-wrap:wrap;font-weight:700;font-size:.92rem;}
-  .navlinks a{color:var(--ink-soft);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
-  .navlinks a:hover, .navlinks a:focus-visible{color:var(--ink);border-color:var(--gold);}
-  .theme-toggle{
-    border:2px solid var(--rule); background:var(--paper); color:var(--ink);
-    border-radius:999px; padding:6px 14px; font-family:'Nunito',sans-serif; font-weight:700;
-    font-size:.85rem; cursor:pointer;
-  }
-  .theme-toggle:hover{border-color:var(--gold);}
-
-  /* hero */
-  .hero{
-    position:relative;
-    padding:56px 0 40px;
-    background-image:
-      repeating-linear-gradient(var(--rule) 0 1px, transparent 1px 38px);
-    background-position:0 12px;
-    overflow:hidden;
-  }
-  .hero::before{
-    content:"";
-    position:absolute; left:64px; top:0; bottom:0; width:2px;
-    background:var(--margin); opacity:.55;
-  }
-  .hero-tag{
-    display:inline-block;
-    font-family:'Caveat',cursive; font-size:1.35rem; font-weight:700;
-    color:var(--lilac);
-    background:var(--lilac-soft);
-    padding:3px 16px 6px;
-    border-radius:3px 14px 3px 14px;
-    transform:rotate(-3deg);
-    box-shadow:var(--shadow);
-    margin-bottom:14px;
-  }
-  .hero h1{font-size:clamp(2.4rem,6vw,3.6rem); letter-spacing:-.01em;}
-  .hero .sub{font-size:1.08rem; color:var(--ink-soft); max-width:46ch;}
-
-  .status-card{
-    margin-top:28px;
-    background:var(--paper-raised);
-    border:1px solid var(--rule);
-    border-radius:4px 16px 4px 16px;
-    padding:22px 24px 24px;
-    box-shadow:var(--shadow);
-    max-width:480px;
-    position:relative;
-  }
-  .status-card::before{
-    content:"";
-    position:absolute; top:-10px; left:28px; width:64px; height:22px;
-    background:var(--gold-soft);
-    border:1px solid var(--gold);
-    opacity:.9;
-    transform:rotate(-4deg);
-  }
-  .status-eyebrow{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ink-soft);}
-  .status-week{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;margin:2px 0 4px;}
-  .status-topic{font-weight:700;margin-bottom:2px;}
-  .status-when{color:var(--ink-soft);font-size:.92rem;margin-bottom:14px;}
-  .progress-row{display:flex;align-items:center;gap:10px;}
-  .progress-track{flex:1;height:9px;border-radius:99px;background:var(--rule);overflow:hidden;}
-  .progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--sage),var(--gold));width:0%;transition:width 1s ease;}
-  .progress-label{font-size:.82rem;color:var(--ink-soft);white-space:nowrap;}
-
-  /* generic section */
-  section{padding:52px 0;}
-  .section-head{max-width:56ch;margin-bottom:34px;}
-  .section-head h2{font-size:1.9rem;}
-  .section-head p{color:var(--ink-soft);}
-
-  /* timeline */
-  .timeline{list-style:none;margin:0;padding:0;position:relative;}
-  .timeline-scroll{position:relative;padding-left:44px;}
-  .timeline-scroll::before{
-    content:""; position:absolute; left:12px; top:0; bottom:0; width:14px;
-    background-image:var(--spine-svg); background-repeat:repeat-y; background-position:top center;
-  }
-  .chapter{
-    display:flex; align-items:baseline; gap:12px;
-    margin:38px 0 16px; position:relative;
-  }
-  .chapter:first-child{margin-top:6px;}
-  .chapter-tag{
-    font-family:'Caveat',cursive; font-size:1.1rem; color:var(--rose);
-    background:var(--rose-soft); padding:2px 10px 4px; border-radius:3px 10px 3px 10px;
-    transform:rotate(-2deg);
-  }
-  .chapter h3{font-size:1.3rem; margin:0;}
-
-  .week-node{position:relative; margin:0 0 16px; display:flex; align-items:flex-start; gap:16px;}
-  .node-dot{
-    flex:0 0 auto; width:26px; height:26px; border-radius:50%;
-    background:var(--paper); border:2.5px solid var(--rule);
-    display:flex; align-items:center; justify-content:center;
-    margin-left:-1px; margin-top:2px;
-    font-size:.8rem; font-weight:800; color:var(--ink-soft);
-    z-index:1;
-  }
-  .week-node.is-done .node-dot{border-color:var(--sage); color:var(--sage); background:var(--sage-soft);}
-  .week-node.is-current .node-dot{border-color:var(--gold); color:var(--gold); background:var(--gold-soft); box-shadow:0 0 0 5px var(--gold-soft);}
-  .week-node.is-break .node-dot{border-color:var(--lilac); color:var(--lilac); background:var(--lilac-soft);}
-
-  .week-card{
-    flex:1; background:var(--paper-raised); border:1px solid var(--rule);
-    border-radius:3px 12px 3px 12px; padding:14px 18px; box-shadow:var(--shadow);
-  }
-  .week-node.is-current .week-card{border-color:var(--gold);}
-  .week-label{font-size:.82rem; font-weight:800; color:var(--ink-soft); margin-bottom:2px;}
-  .week-title{font-family:'Fraunces',serif; font-weight:600; font-size:1.08rem; margin:0 0 4px;}
-  .week-when{font-family:'Caveat',cursive; font-size:1.05rem; color:var(--ink-soft); margin-bottom:6px;}
-  .week-tag{
-    display:inline-flex; align-items:center; gap:5px;
-    font-size:.78rem; font-weight:800; padding:2px 10px; border-radius:99px;
-  }
-  .is-done .week-tag{background:var(--sage-soft); color:var(--sage);}
-  .is-current .week-tag{background:var(--gold-soft); color:var(--gold);}
-  .is-break .week-tag{background:var(--lilac-soft); color:var(--lilac);}
-  .week-note{font-size:.92rem; color:var(--ink-soft); margin-top:6px;}
-
-  /* nivelamento */
-  .checklist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; max-width:60ch;}
-  .checklist li{
-    display:flex; align-items:flex-start; gap:12px;
-    background:var(--paper-raised); border:1px solid var(--rule); border-radius:4px 12px 4px 12px;
-    padding:12px 16px; box-shadow:var(--shadow);
-  }
-  .checklist input[type="checkbox"]{
-    appearance:none; width:22px; height:22px; flex:0 0 auto; margin-top:1px;
-    border:2px solid var(--ink-soft); border-radius:5px; cursor:pointer; position:relative;
-  }
-  .checklist input[type="checkbox"]:checked{border-color:var(--sage); background:var(--sage-soft);}
-  .checklist input[type="checkbox"]:checked::after{
-    content:""; position:absolute; left:4px; top:0px; width:7px; height:12px;
-    border-right:3px solid var(--sage); border-bottom:3px solid var(--sage); transform:rotate(40deg);
-  }
-  .checklist label{cursor:pointer;}
-  .checklist li.done label{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--sage);}
-  .nivel-progress{margin-top:16px; font-size:.9rem; color:var(--ink-soft);}
-
-  /* ritmo */
-  .cards-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px;}
-  .habit-card{
-    background:var(--paper-raised); border:1px solid var(--rule);
-    border-radius:4px 14px 4px 14px; padding:18px 20px; box-shadow:var(--shadow);
-  }
-  .habit-card:nth-child(3n+1){transform:rotate(-.6deg);}
-  .habit-card:nth-child(3n+2){transform:rotate(.5deg);}
-  .habit-card:nth-child(3n+3){transform:rotate(-.3deg);}
-  .habit-card h3{font-size:1.05rem; margin-bottom:6px;}
-  .habit-card p{font-size:.92rem; color:var(--ink-soft); margin:0;}
-
-  /* provas */
-  .exam-list{display:flex; flex-direction:column; gap:14px; max-width:64ch;}
-  .exam-row{
-    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-    background:var(--paper-raised); border:1px solid var(--rule);
-    border-radius:4px 12px 4px 12px; padding:12px 16px; box-shadow:var(--shadow);
-  }
-  .exam-name{font-weight:800; min-width:80px;}
-  .exam-row input[type="date"]{
-    font-family:'Nunito',sans-serif; font-size:.92rem; color:var(--ink);
-    background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:6px 10px;
-  }
-  .exam-chip{font-size:.82rem; font-weight:800; padding:3px 12px; border-radius:99px; background:var(--rose-soft); color:var(--rose); margin-left:auto;}
-  .exam-hint{font-size:.88rem; color:var(--ink-soft); margin-top:14px; max-width:64ch;}
-
-  footer{padding:44px 0 60px; text-align:center;}
-  footer .hand{font-size:1.6rem; color:var(--lilac);}
-  footer p{font-size:.82rem; color:var(--ink-soft); max-width:50ch; margin:8px auto 0;}
-
-  :focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
-
-  @media (max-width:640px){
-    .hero::before{left:36px;}
-    .status-card{max-width:100%;}
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="topbar">
   <div class="wrap">
-    <span class="brand">Cálculo 1</span>
+    <a class="brand" href="index.html">Cálculo 1</a>
     <nav class="navlinks">
       <a href="#hoje">Hoje</a>
       <a href="#cronograma">Cronograma</a>
+      <a href="#geral">Material geral</a>
       <a href="#nivelamento">Nivelamento</a>
       <a href="#ritmo">Ritmo</a>
       <a href="#provas">Provas</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e lousa">papel / lousa</button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e quadro negro">papel / quadro negro</button>
   </div>
 </div>
 
@@ -288,7 +32,7 @@
   <div class="wrap">
     <span class="hero-tag">meu caderno de acompanhamento</span>
     <h1>Cálculo 1</h1>
-    <p class="sub">Turma de Cálculo 1 da UnB, segundo semestre de 2026 — cronograma completo e um plano pra não perder o ritmo.</p>
+    <p class="sub">Turma de Cálculo 1 da UnB, segundo semestre de 2026 — cronograma completo, materiais de cada semana e um plano pra não perder o ritmo.</p>
 
     <div class="status-card" id="statusCard">
       <p class="status-eyebrow">hoje</p>
@@ -308,11 +52,41 @@
   <section id="cronograma">
     <div class="section-head">
       <h2>Onde a matéria está</h2>
-      <p>Da introdução aos limites até a prova de reposição — o semestre inteiro, em ordem. As semanas já passadas ficam marcadas, e a atual fica destacada sozinha.</p>
+      <p>Da introdução aos limites até a prova de reposição — o semestre inteiro, em ordem. Semanas com material liberado no Moodle são clicáveis e levam pros roteiros, textos, vídeos e listas de exercícios daquela semana.</p>
     </div>
 
     <div class="timeline-scroll">
       <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <section id="geral">
+    <div class="section-head">
+      <h2>Material geral</h2>
+      <p>Documentos que valem pro curso inteiro, não só pra uma semana específica.</p>
+    </div>
+    <div class="file-grid">
+      <a class="file-card" href="materiais/geral/plano-de-ensino.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📄</span>
+        <span class="file-meta">
+          <span class="file-title">Plano de Ensino 2/2026</span>
+          <span class="file-sub">programa, avaliação e datas de prova</span>
+        </span>
+      </a>
+      <a class="file-card" href="materiais/geral/carta-apresentacao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📄</span>
+        <span class="file-meta">
+          <span class="file-title">Carta de Apresentação</span>
+          <span class="file-sub">moodle de pré-cálculo, como usar</span>
+        </span>
+      </a>
+      <a class="file-card" href="https://moodle.mat.unb.br/course/view.php?id=92" target="_blank" rel="noopener">
+        <span class="file-icon">📚</span>
+        <span class="file-meta">
+          <span class="file-title">Moodle de Pré-Cálculo</span>
+          <span class="file-sub">revisão de ensino médio — acesso livre, sem login</span>
+        </span>
+      </a>
     </div>
   </section>
 
@@ -343,7 +117,7 @@
       </div>
       <div class="habit-card">
         <h3>Antes da aula</h3>
-        <p>Uns 15 minutos lendo o resumo da semana no Moodle, pra chegar já sabendo do que se trata.</p>
+        <p>Uns 15 minutos lendo o roteiro da semana (aqui no site), pra chegar já sabendo do que se trata.</p>
       </div>
       <div class="habit-card">
         <h3>Depois da aula</h3>
@@ -355,11 +129,11 @@
       </div>
       <div class="habit-card">
         <h3>Monitoria</h3>
-        <p>Tem horário de monitoria linkado na seção Geral do curso. Vale usar antes das provas ou quando travar em algum tópico.</p>
+        <p>Tem horário de monitoria linkado na seção Geral do curso no Moodle. Vale usar antes das provas ou quando travar em algum tópico.</p>
       </div>
       <div class="habit-card">
         <h3>Antes de cada prova</h3>
-        <p>Um bloco de revisão de uns 3 a 4 dias, cobrindo só os tópicos daquele bloco de matéria.</p>
+        <p>Um bloco de revisão de uns 3 a 4 dias, cobrindo só os tópicos daquele módulo.</p>
       </div>
     </div>
   </section>
@@ -367,33 +141,36 @@
   <section id="provas">
     <div class="section-head">
       <h2>Provas</h2>
-      <p>As datas de P1, P2 e P3 não vêm salvas nesta página — elas estão no PDF "Plano de Ensino 2/2026", na seção Geral do curso no Moodle. Preencha aqui assim que pegar as datas certas, pra acompanhar a contagem.</p>
+      <p>Datas oficiais do Plano de Ensino 2/2026 — sábados, das 12h às 13h50 (exceto reposição). Nota final: (2×Atividades + 2×P1 + 3×P2 + 3×P3) / 10, aprova com ≥ 5.</p>
     </div>
     <div class="exam-list" id="examList">
-      <div class="exam-row" data-exam="p1">
+      <div class="exam-row" data-exam="p1" data-date="2026-09-12">
         <span class="exam-name">Prova 1</span>
-        <input type="date" aria-label="Data da prova 1">
-        <span class="exam-chip">adicione a data</span>
+        <span class="exam-date">12 de setembro de 2026</span>
+        <span class="exam-chip"></span>
+        <span class="exam-covers">Módulo 1 — funções, limites, continuidade, TVI, reta tangente, derivada e regras básicas de derivação (semanas 1 a 6).</span>
       </div>
-      <div class="exam-row" data-exam="p2">
+      <div class="exam-row" data-exam="p2" data-date="2026-10-31">
         <span class="exam-name">Prova 2</span>
-        <input type="date" aria-label="Data da prova 2">
-        <span class="exam-chip">adicione a data</span>
+        <span class="exam-date">31 de outubro de 2026</span>
+        <span class="exam-chip"></span>
+        <span class="exam-covers">Módulo 2 — derivada de composições/inversas, derivação implícita, taxas relacionadas, otimização, TVM, esboço de gráficos, regra de L'Hôpital (semanas 7 a 10).</span>
       </div>
-      <div class="exam-row" data-exam="p3">
+      <div class="exam-row" data-exam="p3" data-date="2026-11-28">
         <span class="exam-name">Prova 3</span>
-        <input type="date" aria-label="Data da prova 3">
-        <span class="exam-chip">adicione a data</span>
+        <span class="exam-date">28 de novembro de 2026</span>
+        <span class="exam-chip"></span>
+        <span class="exam-covers">Módulo 3 — integral definida e indefinida, técnicas de integração, aplicações (semanas 11 a 16).</span>
       </div>
     </div>
-    <p class="exam-hint">As datas ficam salvas só nesse navegador (localStorage), então se abrir em outro aparelho precisa preencher de novo.</p>
+    <p class="exam-hint">Prova de reposição: quarta-feira, 02/12/2026, das 12h às 13h50 — só pra quem perdeu uma prova com justificativa aceita. Local de cada prova é avisado no Moodle com antecedência.</p>
   </section>
 
 </main>
 
 <footer>
   <p class="hand">bons estudos!</p>
-  <p>Cronograma tirado do Moodle de Cálculo 1 (UnB, 2/2026). Perto de cada prova, vale conferir as datas certinhas direto no Plano de Ensino.</p>
+  <p>Cronograma e materiais tirados do Moodle de Cálculo 1 (UnB, 2/2026) e do repositório público <a href="http://mat.unb.br/calculo1m/" target="_blank" rel="noopener">mat.unb.br/calculo1m</a>. Perto de cada prova, vale conferir as datas certinhas direto no <a href="materiais/geral/plano-de-ensino.pdf" target="_blank" rel="noopener">Plano de Ensino</a>.</p>
 </footer>
 
 <script>
@@ -403,6 +180,9 @@
     { tag: 'capítulo 2', title: 'Derivadas', from: 5, to: 10 },
     { tag: 'capítulo 3', title: 'Integrais', from: 11, to: 16 },
   ];
+
+  // semanas com material liberado no Moodle e página própria neste site
+  const UNLOCKED_WEEKS = [1, 2, 3, 4];
 
   const WEEKS = [
     { n:1, start:'2026-08-09', end:'2026-08-15', title:'Introdução ao Cálculo' },
@@ -424,7 +204,6 @@
     { n:16, start:'2026-11-29', end:'2026-12-05', title:'Prova de reposição' },
   ];
 
-  const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   function fmt(d){ return `${d.getDate()} de ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][d.getMonth()]}`; }
   function fmtRange(s,e){
     const a = new Date(s+'T00:00:00'), b = new Date(e+'T00:00:00');
@@ -462,18 +241,28 @@
       if(st === 'done' && !w.break) doneCount++;
       if(st === 'current') currentWeek = w;
 
+      const unlocked = w.n !== null && UNLOCKED_WEEKS.includes(w.n);
       const li = document.createElement('li');
       li.className = 'week-node is-' + (w.break ? 'break' : st);
+
+      const cardTag = unlocked ? 'a' : 'div';
+      const cardHref = unlocked ? ` href="semanas/semana-${w.n}.html"` : '';
+
+      let tagHtml = '';
+      if(st==='done' && !w.break) tagHtml = '<span class="week-tag">concluída</span>';
+      if(st==='current') tagHtml = `<span class="week-tag">${w.break ? 'semana atual' : 'semana atual'}</span>`;
+      if(!unlocked && w.n !== null) tagHtml += ' <span class="week-tag is-locked">🔒 material ainda não liberado</span>';
+
       li.innerHTML = `
         <span class="node-dot">${w.break ? '☾' : (st==='done' ? '✓' : (w.n ?? ''))}</span>
-        <div class="week-card">
+        <${cardTag} class="week-card"${cardHref}>
           <p class="week-label">${w.break ? 'Semana Universitária' : ('Semana ' + w.n)}</p>
           <h4 class="week-title">${w.title}</h4>
           <p class="week-when">${fmtRange(w.start, w.end)}</p>
-          ${st==='done' && !w.break ? '<span class="week-tag">concluída</span>' : ''}
-          ${st==='current' ? `<span class="week-tag">${w.break ? 'semana atual' : 'semana atual'}</span>` : ''}
+          ${tagHtml}
           ${w.break ? `<p class="week-note">${w.note}</p>` : ''}
-        </div>`;
+          ${unlocked ? '<span class="week-arrow">→</span>' : ''}
+        </${cardTag}>`;
       timeline.appendChild(li);
     }
 
@@ -525,35 +314,22 @@
   });
   updateNivelProgress();
 
-  // provas — datas com localStorage + contagem
+  // provas — contagem regressiva a partir da data oficial
   document.querySelectorAll('.exam-row').forEach(row => {
-    const key = 'calc1-exam-' + row.dataset.exam;
-    const input = row.querySelector('input[type="date"]');
     const chip = row.querySelector('.exam-chip');
-    function refresh(){
-      const v = input.value;
-      if(!v){ chip.textContent = 'adicione a data'; return; }
-      const target = new Date(v+'T00:00:00');
-      const today = new Date(); today.setHours(0,0,0,0);
-      const days = Math.round((target - today) / 86400000);
-      if(days > 0) chip.textContent = `faltam ${days} dia${days===1?'':'s'}`;
-      else if(days === 0) chip.textContent = 'é hoje';
-      else chip.textContent = 'já passou';
-    }
-    const saved = localStorage.getItem(key);
-    if(saved){ input.value = saved; }
-    refresh();
-    input.addEventListener('change', () => {
-      localStorage.setItem(key, input.value);
-      refresh();
-    });
+    const target = new Date(row.dataset.date+'T00:00:00');
+    const today = new Date(); today.setHours(0,0,0,0);
+    const days = Math.round((target - today) / 86400000);
+    if(days > 0) chip.textContent = `faltam ${days} dia${days===1?'':'s'}`;
+    else if(days === 0) chip.textContent = 'é hoje';
+    else chip.textContent = 'já passou';
   });
 
-  // tema papel / lousa
+  // tema papel / quadro negro
   const toggle = document.getElementById('themeToggle');
   const root = document.documentElement;
-  const savedTheme = localStorage.getItem('calc1-theme');
-  if(savedTheme) root.setAttribute('data-theme', savedTheme);
+  const savedTheme = localStorage.getItem('calc1-theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
   toggle.addEventListener('click', () => {
     const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -561,5 +337,6 @@
     localStorage.setItem('calc1-theme', next);
   });
 </script>
+<script src="glossario.js"></script>
 </body>
 </html>

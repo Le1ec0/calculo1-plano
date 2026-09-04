@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 3 — Cálculo 1</title>
+<meta name="description" content="Roteiro de estudos, textos, vídeos e listas da Semana 3 de Cálculo 1 (UnB, 2/2026): Limites infinitos, no infinito e assíntotas.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Cálculo 1</a>
+    <nav class="navlinks">
+      <a href="../index.html#cronograma">Cronograma</a>
+      <a href="../index.html#geral">Material geral</a>
+      <a href="../index.html#provas">Provas</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e quadro negro">papel / quadro negro</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="../index.html">Cálculo 1</a>
+    <span class="sep">/</span>
+    <a href="../index.html#cronograma">Cronograma</a>
+    <span class="sep">/</span>
+    <span class="current">Semana 3</span>
+  </nav>
+
+  <header class="hero" style="padding:24px 0 8px;">
+    <span class="hero-tag">capítulo 1 — limites e continuidade</span>
+    <h1 style="font-size:clamp(2rem,5vw,2.8rem);">Semana 3 — Limites infinitos, no infinito e assíntotas</h1>
+    <p class="sub">23 a 29 de agosto.</p>
+  </header>
+
+  <div class="callout">Os textos abaixo estão numerados como "04" no Moodle (numeração interna da pasta de arquivos do professor), mas o conteúdo é mesmo o desta semana — segue exatamente como está na página oficial do curso.</div>
+
+  <section class="lesson">
+    <div class="lesson-open"><span class="hero-tag">aula</span></div>
+    <h2 class="lesson-title">Quando o limite explode (ou desaparece no infinito)</h2>
+    <p class="lesson-lede">Até agora todo limite que calculamos era um número. Essa semana tem duas situações novas: o limite pode "explodir" pra infinito perto de um ponto, ou você pode perguntar o que acontece quando <span>\(x\)</span> mesmo vai pro infinito. As duas dão origem às assíntotas.</p>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">1</span> Limite infinito: quando a função "explode" num ponto</h3>
+      <p>Um pistão comprime um gás mantido à temperatura constante. Antes de liquefazer, o volume é <span>\(V(p) = 200/p\)</span> litros, para pressão <span>\(p\)</span>. O que acontece com o volume quando a pressão vai a zero?</p>
+      <div class="widget-box">
+        <div class="widget-label">aproximando a pressão de zero</div>
+        <p style="margin-bottom:4px;">Mexa no controle e veja o volume crescer sem parar — não converge pra número nenhum.</p>
+        <div class="widget-grid">
+          <svg id="vertSvg" class="widget-svg" viewBox="0 0 400 260" aria-label="Gráfico de V(p)=200/p com assíntota vertical em p=0"></svg>
+          <div class="widget-controls">
+            <label for="pSlider">p = <span id="pValue">1.00</span></label>
+            <input type="range" id="pSlider" min="-2" max="0.3" step="0.01" value="0">
+            <div class="widget-readout">
+              <div>V(p) = <span class="big" id="vValue">200</span> litros</div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">quanto menor o p, maior o volume — sem limite.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Como <span>\(V(p)\)</span> fica arbitrariamente grande quando <span>\(p\to0^+\)</span>, escrevemos <span>\(\lim_{p\to0^+}V(p) = +\infty\)</span>. <strong>Isso não significa que o limite existe</strong> — pelo contrário, é uma forma compacta de dizer que ele não existe, mas de um jeito específico (a função explode, em vez de oscilar ou não convergir de outra forma). Quando isso acontece, a reta <span>\(p=0\)</span> é uma <strong>assíntota vertical</strong>.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">2</span> Nem todo denominador zero vira assíntota</h3>
+      <p>Pra achar assíntotas verticais de uma fração, igualar o denominador a zero só dá <em>candidatos</em>. É preciso checar se o numerador também não zera ali — se zerar, pode simplificar e sumir com o problema (como fizemos semana passada).</p>
+      <div class="widget-box">
+        <div class="widget-label">um candidato falso e um verdadeiro</div>
+        <p style="margin-bottom:4px;"><span>\(g(x)=\frac{x+1}{x^2-x-2}\)</span> tem denominador zero em <span>\(x=-1\)</span> e <span>\(x=2\)</span>. Só um dos dois é assíntota de verdade — mexa no x e veja por quê.</p>
+        <div class="widget-grid">
+          <svg id="candSvg" class="widget-svg" viewBox="0 0 400 280" aria-label="Gráfico de g(x) com um furo em x=-1 e assíntota vertical em x=2"></svg>
+          <div class="widget-controls">
+            <label for="xSlider3">x = <span id="xValue3">0.00</span></label>
+            <input type="range" id="xSlider3" min="-3.2" max="3.6" step="0.01" value="0">
+            <div class="widget-readout">
+              <div>g(x) = <span class="big" id="gxValue3">-0.500</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;" id="candNote">nenhum dos dois</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Fatorando o denominador: <span>\(x^2-x-2=(x-2)(x+1)\)</span>, então <span>\(g(x) = \frac{x+1}{(x-2)(x+1)} = \frac{1}{x-2}\)</span> (para <span>\(x\neq-1\)</span>). O fator <span>\((x+1)\)</span> cancela — <span>\(x=-1\)</span> é só um furo, <span>\(g\)</span> tende a <span>\(-1/3\)</span> ali. Já em <span>\(x=2\)</span> não tem cancelamento: <span>\(\lim_{x\to2^\pm}\frac{1}{x-2}=\pm\infty\)</span>. Essa sim é assíntota vertical de verdade.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">3</span> Limite no infinito: pra onde a função vai lá longe</h3>
+      <p>Agora a outra pergunta: em vez de <span>\(x\)</span> se aproximar de um ponto, e se for <span>\(x\)</span> (ou o tempo <span>\(t\)</span>) que cresce sem parar? A concentração de um remédio no sangue depois de <span>\(t\)</span> horas é <span>\(C(t) = \frac{3t}{2t^2+8}\)</span>.</p>
+      <div class="widget-box">
+        <div class="widget-label">deixando o tempo passar</div>
+        <div class="widget-grid">
+          <svg id="horizSvg" class="widget-svg" viewBox="0 0 400 240" aria-label="Gráfico de C(t) com assíntota horizontal em y=0"></svg>
+          <div class="widget-controls">
+            <label for="tSlider">t = <span id="tValue">2.0</span> horas</label>
+            <input type="range" id="tSlider" min="0.2" max="40" step="0.1" value="2">
+            <div class="widget-readout">
+              <div>C(t) = <span class="big" id="cValue">0.300</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">quanto mais o tempo passa, mais perto de <strong>0</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Dividindo tudo por <span>\(t^2\)</span> (a maior potência que aparece): <span>\(C(t) = \frac{3/t}{2+8/t^2}\)</span>. Quando <span>\(t\to+\infty\)</span>, tanto <span>\(3/t\)</span> quanto <span>\(8/t^2\)</span> vão a zero, sobrando <span>\(0/2=0\)</span>. Escrevemos <span>\(\lim_{t\to+\infty}C(t)=0\)</span>, e a reta <span>\(y=0\)</span> é uma <strong>assíntota horizontal</strong>.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">4</span> O truque do termo dominante</h3>
+      <p>Pra qualquer razão de polinômios, quando <span>\(x\to\pm\infty\)</span>, quem manda é o termo de <strong>maior grau</strong> de cada lado — os outros viram poeira perto dele. Divida numerador e denominador pela maior potência de <span>\(x\)</span> que aparecer.</p>
+      <div class="example-box">
+        <p class="label">exemplo</p>
+        <p style="margin:0;"><span>\(\lim_{x\to\pm\infty}\frac{4x^3-3x+1}{2x^3+x^2} = \lim_{x\to\pm\infty}\frac{4-3/x^2+1/x^3}{2+1/x} = \frac{4}{2}=2\)</span> — os termos com <span>\(x\)</span> no denominador somem, sobra só a razão dos coeficientes de maior grau.</p>
+      </div>
+      <div class="qa-box">
+        <p class="q">Regra rápida (sem precisar dividir toda vez)</p>
+        <p style="margin:0;">Comparando os graus de <span class="gterm" data-g="polinomio">polinômio</span> do numerador (m) e denominador (n): se m &lt; n, o limite é 0; se m = n, é a razão dos coeficientes líderes; se m &gt; n, o limite é <span>\(\pm\infty\)</span> (sem assíntota horizontal).</p>
+      </div>
+      <p>Quando aparece uma subtração de duas coisas que crescem, tipo <span>\(\sqrt{x^2+x}-x\)</span>, dá uma indeterminação <span>\(\infty-\infty\)</span> — o truque aí é multiplicar pelo conjugado, igual fizemos quando tinha raiz quadrada travando uma fatoração.</p>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📋 Roteiro de Estudos <span class="count">guia da semana</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana3/roteiro-estudos-03.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📋</span>
+        <span class="file-meta"><span class="file-title">Roteiro de Estudos — Semana 3</span><span class="file-sub">PDF · como usar os materiais abaixo</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📖 Textos <span class="count">3 textos</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana3/volume-pistao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 1/04 — Volume do Pistão</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/volume-pistao-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Volume do Pistão — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana3/concentracao-med.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 2/04 — Concentração de Medicamento</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/concentracao-med-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Concentração de Medicamento — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana3/potencial-cargas-positivas.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 3/04 — Potencial de Cargas Positivas</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/potencial-cargas-positivas-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Potencial de Cargas Positivas — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>🎬 Vídeos <span class="count">5 vídeos</span></h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/feJ06ey_E6c" title="Limites infinitos" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limites infinitos</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/wOwXEMUVsSE" title="Limites no infinito 1" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limites no infinito 1</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/BOvB0NtUBFg" title="Limites no infinito 2" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limites no infinito 2</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/r1OTT50sXio" title="Assíntotas 1" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Assíntotas 1</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/fKHzhL42ITk" title="Assíntotas 2" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Assíntotas 2</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📝 Listas <span class="count">exercícios e aplicação</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana3/semana_03ex.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Exercícios 03</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana3/semana_03ap.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Aplicação 03</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana3/semana_03ap_gab.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Aplicação 03 — gabarito</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="week-footer-nav">
+    <a href="semana-2.html">← Semana 2</a>
+    <a href="semana-4.html">Semana 4 →</a>
+  </div>
+</main>
+
+<footer>
+  <p class="hand">bons estudos!</p>
+  <p>Material tirado do Moodle de Cálculo 1 (UnB, 2/2026) e do repositório público <a href="http://mat.unb.br/calculo1m/" target="_blank" rel="noopener">mat.unb.br/calculo1m</a>.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('calc1-theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('calc1-theme', next);
+  });
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
+  });
+
+  // widget 1 — assíntota vertical, V(p) = 200/p
+  (function(){
+    const svg = document.getElementById('vertSvg');
+    const slider = document.getElementById('pSlider');
+    const pValue = document.getElementById('pValue');
+    const vValue = document.getElementById('vValue');
+    const W = 400, H = 260, pad = 30;
+    const xMin = 0, xMax = 2.5, yMin = 0, yMax = 220;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (Math.min(y,yMax) - yMin) / (yMax - yMin) * (H - 2*pad);
+    const V = p => 200 / p;
+
+    let pts = [];
+    for(let p = 0.02; p <= xMax; p += 0.02){ pts.push(`${sx(p)},${sy(V(p))}`); }
+
+    function draw(p){
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="${sx(0)}" y1="${sy(yMin)}" x2="${sx(0)}" y2="${sy(yMax)}" stroke="var(--rose)" stroke-width="2" stroke-dasharray="5,5"/>
+        <text x="${sx(0)+6}" y="18" font-size="12" fill="var(--rose)">assíntota p=0</text>
+        <polyline points="${pts.join(' ')}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(p)}" cy="${sy(V(p))}" r="5" fill="var(--gold)"/>
+      `;
+      pValue.textContent = p.toFixed(3);
+      vValue.textContent = V(p).toFixed(1);
+    }
+    slider.addEventListener('input', () => draw(Math.pow(10, parseFloat(slider.value))));
+    draw(1);
+  })();
+
+  // widget 2 — candidato falso (furo) vs verdadeiro (assíntota)
+  (function(){
+    const svg = document.getElementById('candSvg');
+    const slider = document.getElementById('xSlider3');
+    const xValue = document.getElementById('xValue3');
+    const gxValue = document.getElementById('gxValue3');
+    const candNote = document.getElementById('candNote');
+    const W = 400, H = 280, pad = 30;
+    const xMin = -3.3, xMax = 3.7, yMin = -6, yMax = 6;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (Math.max(yMin,Math.min(y,yMax)) - yMin) / (yMax - yMin) * (H - 2*pad);
+    const g = x => (x + 1) / (x*x - x - 2);
+
+    function segment(from, to){
+      let pts = [];
+      for(let x = from; x <= to; x += 0.02){
+        if(Math.abs(x+1) < 0.015) continue;
+        pts.push(`${sx(x)},${sy(g(x))}`);
+      }
+      return pts.join(' ');
+    }
+
+    function draw(x){
+      const nearHole = Math.abs(x + 1) < 0.02;
+      const nearAsym = Math.abs(x - 2) < 0.02;
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="${sx(2)}" y1="${sy(yMin)}" x2="${sx(2)}" y2="${sy(yMax)}" stroke="var(--rose)" stroke-width="2" stroke-dasharray="5,5"/>
+        <polyline points="${segment(xMin, 1.85)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <polyline points="${segment(2.15, xMax)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(-1)}" cy="${sy(-1/3)}" r="5" fill="var(--paper-raised)" stroke="var(--sage)" stroke-width="2.5"/>
+        <text x="${sx(-1)-34}" y="${sy(-1/3)-10}" font-size="11" fill="var(--sage)">furo, não assíntota</text>
+        <text x="${sx(2)+6}" y="18" font-size="12" fill="var(--rose)">assíntota x=2</text>
+        ${(nearHole||nearAsym) ? '' : `<circle cx="${sx(x)}" cy="${sy(g(x))}" r="5" fill="var(--gold)"/>`}
+      `;
+      xValue.textContent = x.toFixed(2);
+      if(nearHole){ gxValue.textContent = '-0.333 (furo)'; candNote.textContent = 'aqui o numerador TAMBÉM zera — cancela, vira furo, não assíntota'; }
+      else if(nearAsym){ gxValue.textContent = '±∞'; candNote.textContent = 'aqui só o denominador zera — assíntota vertical de verdade'; }
+      else { gxValue.textContent = g(x).toFixed(3); candNote.textContent = 'longe dos dois candidatos'; }
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(0);
+  })();
+
+  // widget 3 — assíntota horizontal, C(t)
+  (function(){
+    const svg = document.getElementById('horizSvg');
+    const slider = document.getElementById('tSlider');
+    const tValue = document.getElementById('tValue');
+    const cValue = document.getElementById('cValue');
+    const W = 400, H = 240, pad = 30;
+    const xMin = 0, xMax = 40, yMin = 0, yMax = 0.42;
+    const sx = t => pad + (t - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const C = t => (3*t) / (2*t*t + 8);
+
+    let pts = [];
+    for(let t = 0; t <= xMax; t += 0.2){ pts.push(`${sx(t)},${sy(C(t))}`); }
+
+    function draw(t){
+      svg.innerHTML = `
+        <line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rose)" stroke-width="2" stroke-dasharray="5,5"/>
+        <text x="${sx(xMax)-90}" y="${sy(0)-8}" font-size="12" fill="var(--rose)">assíntota y=0</text>
+        <polyline points="${pts.join(' ')}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(t)}" cy="${sy(C(t))}" r="5" fill="var(--gold)"/>
+      `;
+      tValue.textContent = t.toFixed(1);
+      cValue.textContent = C(t).toFixed(3);
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(2);
+  })();
+</script>
+<script src="../glossario.js"></script>
+</body>
+</html>

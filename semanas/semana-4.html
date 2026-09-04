@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 4 — Cálculo 1</title>
+<meta name="description" content="Roteiro de estudos, textos, vídeos e listas da Semana 4 de Cálculo 1 (UnB, 2/2026): Continuidade.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Cálculo 1</a>
+    <nav class="navlinks">
+      <a href="../index.html#cronograma">Cronograma</a>
+      <a href="../index.html#geral">Material geral</a>
+      <a href="../index.html#provas">Provas</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e quadro negro">papel / quadro negro</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="../index.html">Cálculo 1</a>
+    <span class="sep">/</span>
+    <a href="../index.html#cronograma">Cronograma</a>
+    <span class="sep">/</span>
+    <span class="current">Semana 4</span>
+  </nav>
+
+  <header class="hero" style="padding:24px 0 8px;">
+    <span class="hero-tag">capítulo 1 — limites e continuidade</span>
+    <h1 style="font-size:clamp(2rem,5vw,2.8rem);">Semana 4 — Continuidade</h1>
+    <p class="sub">30 de agosto a 05 de setembro.</p>
+  </header>
+
+  <div class="callout">Os textos abaixo estão numerados como "03" no Moodle (numeração interna da pasta de arquivos do professor), mas o conteúdo é mesmo o desta semana — segue exatamente como está na página oficial do curso. As soluções ainda não foram publicadas (saem geralmente uma semana depois).</div>
+
+  <section class="lesson">
+    <div class="lesson-open"><span class="hero-tag">aula</span></div>
+    <h2 class="lesson-title">Continuidade: quando o gráfico não dá pulo</h2>
+    <p class="lesson-lede">As duas últimas semanas foram sobre <span class="gterm" data-g="limite">limite</span>: pra onde a função "quer ir" perto de um ponto. Continuidade é a pergunta seguinte, bem mais simples: quando a função <em>chega de fato</em> onde ela quer ir? Essa semana tem menos contas novas que as anteriores — o trabalho pesado é usar limite lateral, que você já sabe calcular, pra responder uma pergunta prática: "que valor de parâmetro evita o pulo?" ou "existe solução aqui?".</p>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">1</span> A definição, com um caso real: o imposto de renda</h3>
+      <p>Um país fictício cobra imposto assim: renda até 10 mil é isenta; de 10 a 20 mil paga 10% menos uma dedução fixa <span>\(c\)</span>; acima de 20 mil paga 20%. Isso dá a função por partes</p>
+      <p style="text-align:center;"><span>\[I(r) = \begin{cases} 0 & 0\le r\le 10 \\ 0{,}1r - c & 10 < r \le 20 \\ 0{,}2r & r>20 \end{cases}\]</span></p>
+      <p>Mexa em <span>\(c\)</span> e observe o que acontece no gráfico bem em cima de <span>\(r=10\)</span>:</p>
+      <div class="widget-box">
+        <div class="widget-label">o efeito da dedução no ponto de corte</div>
+        <div class="widget-grid">
+          <svg id="impostoSvg" class="widget-svg" viewBox="0 0 400 260" aria-label="Gráfico da função do imposto de renda, com salto ajustável em r=10"></svg>
+          <div class="widget-controls">
+            <label for="impSlider">dedução c = <span id="impCValue">0.00</span></label>
+            <input type="range" id="impSlider" min="0" max="2" step="0.05" value="0">
+            <div class="widget-readout">
+              <div style="font-size:.82rem;color:var(--ink-soft);">limite pela esquerda em r=10: <strong id="impLeft">0</strong></div>
+              <div style="font-size:.82rem;color:var(--ink-soft);">limite pela direita em r=10: <strong id="impRight">1,00</strong></div>
+              <div style="margin-top:8px;" id="impStatus" class="big">descontínua</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Quando <span>\(c\neq1\)</span>, os limites laterais em <span>\(r=10\)</span> são diferentes, então <span>\(\lim_{r\to10}I(r)\)</span> <strong>não existe</strong> — e alguém que ganha 10.001 cruzetas paga imposto quase 1 mil maior que alguém que ganha exatamente 10.000. Só quando <span>\(c=1\)</span> os dois lados se encontram em 0. Essa é a ideia de continuidade:</p>
+      <div class="qa-box">
+        <p class="q">Definição — continuidade em um ponto</p>
+        <p style="margin:0;"><span>\(f\)</span> é <span class="gterm" data-g="continuidade">contínua</span> em <span>\(x=a\)</span> quando três coisas acontecem: (1) <span>\(a\)</span> está no domínio de <span>\(f\)</span>, (2) <span>\(\lim_{x\to a}f(x)\)</span> existe, e (3) esse limite é igual a <span>\(f(a)\)</span>. Resumindo numa linha: <span>\(\lim_{x\to a}f(x) = f(a)\)</span>.</p>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">2</span> A receita pra achar o parâmetro certo</h3>
+      <p>Boa parte da lista pede exatamente isso: dada uma função por partes com uma letra (a, b ou c) numa das partes, achar o valor que faz o "encontro de fronteira" dar certo. É sempre a mesma receita de 3 passos.</p>
+      <div class="qa-box">
+        <p class="q">Receita: continuidade num ponto de fronteira</p>
+        <p style="margin:0 0 6px;"><strong>1.</strong> Calcule o limite lateral esquerdo em <span>\(x=a\)</span> (usando o pedaço da função válido antes de <span>\(a\)</span>).<br><strong>2.</strong> Calcule o limite lateral direito em <span>\(x=a\)</span> (usando o pedaço válido depois de <span>\(a\)</span>) — ou, se um dos lados incluir o próprio <span>\(a\)</span>, use direto <span>\(f(a)\)</span>.<br><strong>3.</strong> Iguale os dois resultados e resolva a equação para o parâmetro.</p>
+      </div>
+      <p>Exemplo, direto da lista desta semana: ache <span>\(a\in\mathbb{R}\)</span> tal que</p>
+      <p style="text-align:center;"><span>\[f(x) = \begin{cases} 1+ax & x\le 0 \\ x^4+2a & x>0\end{cases}\]</span></p>
+      <p>seja contínua em <span>\(x=0\)</span>.</p>
+      <div class="example-box">
+        <p class="label">resolvendo com a receita</p>
+        <p style="margin:0;">Esquerda: <span>\(\lim_{x\to0^-}(1+ax) = 1+a\cdot0 = 1\)</span>. Direita: <span>\(\lim_{x\to0^+}(x^4+2a) = 0+2a = 2a\)</span>. Igualando: <span>\(1 = 2a \Rightarrow a=\frac12\)</span>. Pronto — não tem mistério além de calcular dois limites (que você já sabe fazer) e resolver uma equação de 1º grau.</p>
+      </div>
+      <p>Quando a função tem <em>duas</em> fronteiras com <em>dois</em> parâmetros (tipo os exercícios com <span>\(a\)</span> e <span>\(b\)</span> juntos), aplique a receita duas vezes, uma pra cada ponto — cada aplicação te dá uma equação, e no final você resolve um sisteminha.</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">3</span> Dois jeitos de "quebrar": furo vs. salto</h3>
+      <p>Nem toda descontinuidade é igual. Em <span>\(f(x) = \frac{x^2-1}{x-1}\)</span>, o ponto <span>\(x=1\)</span> nem está no domínio (dá 0/0) — mas o limite existe e vale 2. Isso é um <strong>furo tapável</strong>: basta definir <span>\(f(1)=2\)</span> e a função vira contínua ali.</p>
+      <div class="widget-box">
+        <div class="widget-label">descontinuidade removível</div>
+        <div class="widget-grid">
+          <svg id="furoSvg" class="widget-svg" viewBox="0 0 400 240" aria-label="Gráfico de (x²-1)/(x-1), reta com um furo em x=1"></svg>
+          <div class="widget-controls">
+            <label for="furoSlider">x = <span id="furoXValue">-0.50</span></label>
+            <input type="range" id="furoSlider" min="-2" max="3" step="0.02" value="-0.5">
+            <div class="widget-readout">
+              <div>f(x) = <span class="big" id="furoFValue">0.500</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;" id="furoNote">longe do furo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Já numa <span class="gterm" data-g="descontinuidade-removivel">descontinuidade de salto</span> (como a função maior inteiro <span>\(\llbracket x\rrbracket\)</span>, ou o imposto de renda com <span>\(c\neq1\)</span> lá em cima), os limites laterais existem, mas são <strong>diferentes</strong> — não tem valor nenhum que você possa colocar no ponto pra consertar, porque os dois lados simplesmente não se encontram. É a diferença entre "esqueceram de pintar um pixel" e "a estrada tem um degrau".</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">4</span> TVI: se a função é contínua, ela não pula por cima da raiz</h3>
+      <p>O Teorema do Valor Intermediário (TVI) é a ferramenta que vem depois de continuidade, e é o que resolve a segunda metade da lista: "mostre que essa equação tem solução". A ideia é simples — se <span>\(f\)</span> é contínua em <span>\([a,b]\)</span> e o sinal de <span>\(f\)</span> muda entre <span>\(a\)</span> e <span>\(b\)</span>, o gráfico teve que cruzar o zero em algum ponto no meio, porque uma função contínua não pula de um lado pro outro sem passar pelo caminho.</p>
+      <div class="widget-box">
+        <div class="widget-label">achando uma raiz de f(x) = x³ − 2x² − 4x − 2 por bisseção</div>
+        <p style="margin-bottom:4px;">Clique em "bissectar": a cada clique, o intervalo onde com certeza tem raiz corta pela metade.</p>
+        <div class="widget-grid">
+          <svg id="tviSvg" class="widget-svg" viewBox="0 0 400 260" aria-label="Gráfico de f(x)=x³-2x²-4x-2 com intervalo de bisseção destacado"></svg>
+          <div class="widget-controls">
+            <div class="widget-readout">
+              <div>intervalo atual: <span class="big" id="tviInterval">[2.00, 6.00]</span></div>
+              <div style="margin-top:6px;font-size:.82rem;color:var(--ink-soft);">erro máximo: <strong id="tviError">2.00</strong> · passo <strong id="tviIter">0</strong></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <button type="button" id="tviStep" class="theme-toggle" style="flex:1;">bissectar →</button>
+              <button type="button" id="tviReset" class="theme-toggle" style="flex:1;">reiniciar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>Note que o TVI <strong>garante que existe</strong> raiz, mas não diz qual é — pra achar o valor aproximado, a bisseção é o processo natural: você já sabe que tem raiz em <span>\([2,6]\)</span> porque <span>\(f(2)=-10\)</span> e <span>\(f(6)=118\)</span> têm sinais opostos. Testa o meio; o novo sub-intervalo (onde o sinal ainda troca) com certeza também tem a raiz; repete.</p>
+      <div class="qa-box">
+        <p class="q">Receita: provar que uma equação tem solução</p>
+        <p style="margin:0;"><strong>1.</strong> Reescreva a equação como <span>\(f(x)=0\)</span> (passe tudo pro mesmo lado). <strong>2.</strong> Confirme que <span>\(f\)</span> é contínua no intervalo que você vai usar (soma/produto/composição de funções contínuas — quase sempre é, nas listas). <strong>3.</strong> Ache <span>\(a\)</span> e <span>\(b\)</span> onde <span>\(f(a)\)</span> e <span>\(f(b)\)</span> têm sinais opostos (chute valores fáceis: 0, 1, 2...). <strong>4.</strong> Conclua pelo TVI que existe <span>\(x_0\in(a,b)\)</span> com <span>\(f(x_0)=0\)</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📋 Roteiro de Estudos <span class="count">guia da semana</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana4/roteiro-estudos-04.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📋</span>
+        <span class="file-meta"><span class="file-title">Roteiro de Estudos — Semana 4</span><span class="file-sub">PDF · como usar os materiais abaixo</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📖 Textos <span class="count">3 textos</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana4/imposto-renda.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 1/03 — Imposto de Renda</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/continuidade.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 2/03 — Continuidade</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/tvi.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 3/03 — Teorema do Valor Intermediário</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>🎬 Vídeos <span class="count">3 vídeos</span></h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/9Dxuqw5YTis" title="Funções definidas por Partes" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Funções definidas por Partes</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/k-qjD0S53O8" title="Equações Complicadas" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Equações Complicadas</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/ZREj6r1UnPM" title="Temperatura no Equador" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Temperatura no Equador</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📝 Listas <span class="count">exercícios e aplicação</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana4/semana_04ex.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Exercícios 04</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana4/semana_04ap.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Aplicação 04</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="week-footer-nav">
+    <a href="semana-3.html">← Semana 3</a>
+    <a class="disabled" href="#">Semana 5 →</a>
+  </div>
+</main>
+
+<footer>
+  <p class="hand">bons estudos!</p>
+  <p>Material tirado do Moodle de Cálculo 1 (UnB, 2/2026) e do repositório público <a href="http://mat.unb.br/calculo1m/" target="_blank" rel="noopener">mat.unb.br/calculo1m</a>.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('calc1-theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('calc1-theme', next);
+  });
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
+  });
+
+  // widget 1 — imposto de renda, salto ajustável em r=10
+  (function(){
+    const svg = document.getElementById('impostoSvg');
+    const slider = document.getElementById('impSlider');
+    const cValue = document.getElementById('impCValue');
+    const leftEl = document.getElementById('impLeft');
+    const rightEl = document.getElementById('impRight');
+    const statusEl = document.getElementById('impStatus');
+    const W = 400, H = 260, pad = 30;
+    const xMin = 0, xMax = 30, yMin = 0, yMax = 6;
+    const sx = r => pad + (r - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const I = (r, c) => r <= 10 ? 0 : (r <= 20 ? 0.1*r - c : 0.2*r);
+
+    function seg(from, to, c){
+      let pts = [];
+      for(let r = from; r <= to; r += 0.5){ pts.push(`${sx(r)},${sy(I(r,c))}`); }
+      return pts.join(' ');
+    }
+
+    function draw(c){
+      const left = 0, right = 1 - c;
+      const continuous = Math.abs(right - left) < 0.001;
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="${sx(10)}" y1="${sy(yMin)}" x2="${sx(10)}" y2="${sy(yMax)}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="${sx(10)+4}" y="${H-8}" font-size="11" fill="var(--ink-soft)">r=10</text>
+        <polyline points="${seg(xMin,10,c)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <polyline points="${seg(10,20,c)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <polyline points="${seg(20,xMax,c)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(10)}" cy="${sy(left)}" r="5" fill="var(--gold)"/>
+        ${continuous
+          ? ''
+          : `<circle cx="${sx(10)}" cy="${sy(right)}" r="5" fill="none" stroke="var(--rose)" stroke-width="2"/>
+             <line x1="${sx(10)}" y1="${sy(left)}" x2="${sx(10)}" y2="${sy(right)}" stroke="var(--rose)" stroke-width="2" stroke-dasharray="3,3"/>`}
+      `;
+      cValue.textContent = c.toFixed(2);
+      leftEl.textContent = left.toFixed(2);
+      rightEl.textContent = right.toFixed(2);
+      statusEl.textContent = continuous ? 'contínua ✓' : `descontínua — salto de ${Math.abs(right-left).toFixed(2)}`;
+      statusEl.style.color = continuous ? 'var(--sage)' : 'var(--rose)';
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(0);
+  })();
+
+  // widget 2 — furo removível em (x²-1)/(x-1)
+  (function(){
+    const svg = document.getElementById('furoSvg');
+    const slider = document.getElementById('furoSlider');
+    const xValue = document.getElementById('furoXValue');
+    const fValue = document.getElementById('furoFValue');
+    const note = document.getElementById('furoNote');
+    const W = 400, H = 240, pad = 30;
+    const xMin = -2, xMax = 3, yMin = -1.5, yMax = 4.5;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const f = x => x + 1; // simplificado; original indefinido em x=1
+
+    function seg(from, to){
+      let pts = [];
+      for(let x = from; x <= to; x += 0.05){
+        if(Math.abs(x-1) < 0.03) continue;
+        pts.push(`${sx(x)},${sy(f(x))}`);
+      }
+      return pts.join(' ');
+    }
+
+    function draw(x){
+      const nearHole = Math.abs(x-1) < 0.03;
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <polyline points="${seg(xMin,0.9)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <polyline points="${seg(1.1,xMax)}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(1)}" cy="${sy(2)}" r="5" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+        <text x="${sx(1)+8}" y="${sy(2)-8}" font-size="11" fill="var(--gold)">furo: limite = 2</text>
+        ${nearHole ? '' : `<circle cx="${sx(x)}" cy="${sy(f(x))}" r="5" fill="var(--gold)"/>`}
+      `;
+      xValue.textContent = x.toFixed(2);
+      if(nearHole){ fValue.textContent = 'indefinido (0/0)'; note.textContent = 'aqui a função original nem existe — mas o limite é 2, então dá pra "tapar" o furo definindo f(1)=2'; }
+      else { fValue.textContent = f(x).toFixed(3); note.textContent = 'longe do furo, é só a reta y=x+1'; }
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(-0.5);
+  })();
+
+  // widget 3 — TVI por bisseção, f(x) = x³-2x²-4x-2
+  (function(){
+    const svg = document.getElementById('tviSvg');
+    const stepBtn = document.getElementById('tviStep');
+    const resetBtn = document.getElementById('tviReset');
+    const intervalEl = document.getElementById('tviInterval');
+    const errorEl = document.getElementById('tviError');
+    const iterEl = document.getElementById('tviIter');
+    const W = 400, H = 260, pad = 30;
+    const xMin = 2, xMax = 6, yMin = -15, yMax = 120;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const f = x => x*x*x - 2*x*x - 4*x - 2;
+
+    let a = 2, b = 6, iter = 0;
+    let pts = [];
+    for(let x = xMin; x <= xMax; x += 0.05){ pts.push(`${sx(x)},${sy(f(x))}`); }
+    const curve = pts.join(' ');
+
+    function draw(){
+      const fa = f(a), fb = f(b);
+      svg.innerHTML = `
+        <rect x="${sx(a)}" y="${pad}" width="${sx(b)-sx(a)}" height="${H-2*pad}" fill="var(--gold-soft)" opacity="0.5"/>
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <polyline points="${curve}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <line x1="${sx(a)}" y1="${sy(yMin)}" x2="${sx(a)}" y2="${sy(yMax)}" stroke="var(--sage)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="${sx(b)}" y1="${sy(yMin)}" x2="${sx(b)}" y2="${sy(yMax)}" stroke="var(--sage)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <circle cx="${sx(a)}" cy="${sy(fa)}" r="5" fill="${fa<0?'var(--rose)':'var(--sage)'}"/>
+        <circle cx="${sx(b)}" cy="${sy(fb)}" r="5" fill="${fb<0?'var(--rose)':'var(--sage)'}"/>
+        <text x="${sx(a)}" y="18" font-size="11" fill="var(--sage)">a</text>
+        <text x="${sx(b)-8}" y="18" font-size="11" fill="var(--sage)">b</text>
+      `;
+      intervalEl.textContent = `[${a.toFixed(2)}, ${b.toFixed(2)}]`;
+      errorEl.textContent = ((b-a)/2).toFixed(2);
+      iterEl.textContent = iter;
+    }
+    stepBtn.addEventListener('click', () => {
+      const m = (a+b)/2;
+      const fm = f(m);
+      if(Math.sign(f(a)) !== Math.sign(fm)){ b = m; } else { a = m; }
+      iter++;
+      draw();
+    });
+    resetBtn.addEventListener('click', () => { a=2; b=6; iter=0; draw(); });
+    draw();
+  })();
+</script>
+<script src="../glossario.js"></script>
+</body>
+</html>

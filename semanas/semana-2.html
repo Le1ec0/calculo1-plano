@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 2 — Cálculo 1</title>
+<meta name="description" content="Roteiro de estudos, textos, vídeos e listas da Semana 2 de Cálculo 1 (UnB, 2/2026): Limite no ponto.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Cálculo 1</a>
+    <nav class="navlinks">
+      <a href="../index.html#cronograma">Cronograma</a>
+      <a href="../index.html#geral">Material geral</a>
+      <a href="../index.html#provas">Provas</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar entre papel e quadro negro">papel / quadro negro</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="breadcrumb">
+    <a href="../index.html">Cálculo 1</a>
+    <span class="sep">/</span>
+    <a href="../index.html#cronograma">Cronograma</a>
+    <span class="sep">/</span>
+    <span class="current">Semana 2</span>
+  </nav>
+
+  <header class="hero" style="padding:24px 0 8px;">
+    <span class="hero-tag">capítulo 1 — limites e continuidade</span>
+    <h1 style="font-size:clamp(2rem,5vw,2.8rem);">Semana 2 — Limite no ponto</h1>
+    <p class="sub">16 a 22 de agosto.</p>
+  </header>
+
+  <section class="lesson">
+    <div class="lesson-open"><span class="hero-tag">aula</span></div>
+    <h2 class="lesson-title">O limite de verdade</h2>
+    <p class="lesson-lede">Semana passada calculamos limites "no braço", com tabelas de aproximação. Agora vamos formalizar a ideia, aprender a técnica que funciona pra maioria dos casos, e ver o que fazer quando o limite não existe.</p>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">1</span> O que <span>\(\lim_{x\to a} f(x) = L\)</span> realmente significa</h3>
+      <p>Dizer que <span>\(\lim_{x\to a} f(x) = L\)</span> significa: à medida que <span>\(x\)</span> vai chegando perto de <span>\(a\)</span> (de qualquer lado), os valores <span>\(f(x)\)</span> vão chegando perto de <span>\(L\)</span>. Só isso. Repare em duas coisas contraintuitivas, mas importantes:</p>
+      <div class="qa-box">
+        <p class="q">O que importa não é o valor de f em a — é o comportamento perto de a</p>
+        <p style="margin:0;">O ponto <span>\(x=a\)</span> nem precisa pertencer ao <span class="gterm" data-g="dominio">domínio</span> de <span>\(f\)</span>. E mesmo quando pertence, <span>\(f(a)\)</span> pode ser diferente do limite — o gráfico pode ter um "furo" ou um "salto" bem em cima do ponto <span>\(a\)</span>, e o limite não liga pra isso: ele só olha pra onde a função está indo <em>ao redor</em> de <span>\(a\)</span>.</p>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">2</span> Quando dá pra só substituir</h3>
+      <p>Se <span>\(f\)</span> é um <span class="gterm" data-g="polinomio">polinômio</span>, ou uma razão de dois polinômios <span>\(p(x)/q(x)\)</span> com <span>\(q(a)\neq 0\)</span>, o limite é simplesmente <span>\(f(a)\)</span> — substitua e pronto. Isso vem das propriedades do limite (soma, produto e quociente de limites se comportam como você espera).</p>
+      <div class="example-box">
+        <p class="label">exemplo direto</p>
+        <p style="margin:0;"><span>\(\displaystyle\lim_{x\to 2}\frac{x^3+x^2-2x}{x^2-1} = \frac{2^3+2^2-2\cdot2}{2^2-1} = \frac{8}{3}\)</span> — o denominador em <span>\(x=2\)</span> não é zero, então é só substituir.</p>
+      </div>
+      <p>O problema aparece quando o denominador <em>também</em> zera no ponto — como em <span>\(x=1\)</span> na mesma fração. Aí não dá pra substituir (divisão por zero não existe), mas isso <strong>não significa que o limite não existe</strong>: significa que você precisa simplificar antes.</p>
+
+      <div class="widget-box">
+        <div class="widget-label">o "buraco" no gráfico</div>
+        <p style="margin-bottom:4px;">A função <span>\(f(x) = \frac{x^3+x^2-2x}{x^2-1}\)</span> não está definida em <span>\(x=1\)</span> — mas o limite existe. Aproxime-se e veja.</p>
+        <div class="widget-grid">
+          <svg id="holeSvg" class="widget-svg" viewBox="0 0 400 320" aria-label="Gráfico com um furo em x=1"></svg>
+          <div class="widget-controls">
+            <label for="xSlider1">x = <span id="xValue1">2.00</span></label>
+            <input type="range" id="xSlider1" min="0.2" max="2.4" step="0.01" value="2">
+            <div class="widget-readout">
+              <div>f(x) = <span class="big" id="fxValue1">2.67</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;">em x=1 a função não existe (furo), mas o limite é <strong>1,5</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>A técnica: fatore numerador e denominador procurando um fator <span>\((x-a)\)</span> em comum, e cancele. Aqui, <span>\(x=1\)</span> é <span class="gterm" data-g="raiz-polinomio">raiz</span> do numerador, então <span>\(x^3+x^2-2x = (x-1)(x^2+2x)\)</span> — essa fatoração sai fazendo <span class="gterm" data-g="divisao-polinomios">divisão de polinômios</span>. E o denominador é uma <span class="gterm" data-g="produto-notavel">diferença de quadrados</span>: <span>\(x^2-1=(x-1)(x+1)\)</span>. Cancelando o <span>\((x-1)\)</span> dos dois lados:</p>
+      <p>\[ \lim_{x\to 1}\frac{x^3+x^2-2x}{x^2-1} = \lim_{x\to 1}\frac{x^2+2x}{x+1} = \frac{1+2}{2} = \frac{3}{2}. \]</p>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">3</span> Quando o limite realmente não existe</h3>
+      <p>Nem todo <span>\(0/0\)</span> se resolve por fatoração — às vezes a função se comporta de um jeito completamente diferente dos dois lados do ponto. Considere <span>\(g(x) = \frac{x-2}{|x-2|}\)</span>. Lembrando que <span class="gterm" data-g="modulo">módulo</span> "quebra" a expressão em dois casos: se <span>\(x>2\)</span>, <span>\(g(x)=1\)</span>; se <span>\(x<2\)</span>, <span>\(g(x)=-1\)</span>.</p>
+
+      <div class="widget-box">
+        <div class="widget-label">chegando por dois lados diferentes</div>
+        <p style="margin-bottom:4px;">Mexa no x e veja g(x) "pular" de −1 pra 1 exatamente em x=2 — não converge pra um só número.</p>
+        <div class="widget-grid">
+          <svg id="stepSvg" class="widget-svg" viewBox="0 0 400 240" aria-label="Gráfico em degrau de g(x)"></svg>
+          <div class="widget-controls">
+            <label for="xSlider2">x = <span id="xValue2">2.50</span></label>
+            <input type="range" id="xSlider2" min="0.5" max="3.5" step="0.01" value="2.5">
+            <div class="widget-readout">
+              <div>g(x) = <span class="big" id="gxValue2">1</span></div>
+              <div style="margin-top:8px;color:var(--ink-soft);font-size:.82rem;" id="sideNote2">chegando por x &gt; 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>Formalizando essa ideia de "chegar só por um lado": <span>\(\lim_{x\to a^+}\)</span> olha só <span>\(x>a\)</span>, e <span>\(\lim_{x\to a^-}\)</span> olha só <span>\(x&lt;a\)</span> — os <span class="gterm" data-g="limite-lateral">limites laterais</span>. Aqui, <span>\(\lim_{x\to2^+}g(x)=1\)</span> e <span>\(\lim_{x\to2^-}g(x)=-1\)</span>: laterais diferentes, então o limite (bilateral) não existe.</p>
+      <div class="qa-box">
+        <p class="q">O teorema que junta tudo</p>
+        <p style="margin:0;"><span>\(\lim_{x\to a}f(x)\)</span> existe <strong>se, e somente se</strong>, os dois limites laterais existem <strong>e são iguais</strong> — nesse caso o limite é esse valor comum. Um só motivo já é suficiente pra derrubar a existência: laterais diferentes, ou um dos lados nem se aproxima de nada.</p>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">4</span> Um truque de "sanduíche"</h3>
+      <p>Às vezes nenhuma fatoração resolve, mas você consegue <em>encaixar</em> a função entre duas outras que têm o mesmo limite. É o <strong>Teorema do Confronto</strong>: se <span>\(f(x)\le h(x)\le g(x)\)</span> perto de <span>\(a\)</span>, e <span>\(f\)</span> e <span>\(g\)</span> têm o mesmo limite <span>\(L\)</span> em <span>\(a\)</span>, então <span>\(h\)</span> também tem limite <span>\(L\)</span> — ela fica "espremida" no meio.</p>
+      <div class="example-box">
+        <p class="label">exemplo clássico</p>
+        <p style="margin:0;"><span>\(\lim_{x\to0}x^2\,\mathrm{sen}(1/x)\)</span>: não dá pra usar a regra do produto (o seno oscila sem parar), mas como <span>\(-1\le \mathrm{sen}(1/x)\le 1\)</span> sempre, multiplicando por <span>\(x^2>0\)</span> temos <span>\(-x^2\le x^2\mathrm{sen}(1/x)\le x^2\)</span>. Como <span>\(-x^2\)</span> e <span>\(x^2\)</span> vão a zero, a função no meio também vai — o limite é <strong>0</strong>, mesmo oscilando infinitas vezes perto de zero.</p>
+      </div>
+    </div>
+
+    <div class="lesson-block">
+      <h3><span class="step-num">5</span> De volta ao limite trigonométrico fundamental</h3>
+      <p>Na semana passada aceitamos por intuição que <span>\(\lim_{\theta\to0}\frac{\mathrm{sen}(\theta)}{\theta}=1\)</span>. Agora dá pra provar com o Teorema do Confronto: comparando a área de dois triângulos com a área do setor circular entre eles, chega-se em <span>\(\mathrm{cos}(\theta) < \frac{\mathrm{sen}(\theta)}{\theta} < 1\)</span> perto de zero — e como <span>\(\cos(\theta)\to1\)</span>, a função do meio também vai a 1.</p>
+      <p>Um detalhe útil: no argumento pela esquerda, usa-se que seno é uma <span class="gterm" data-g="funcao-impar">função ímpar</span>. Isso abre a porta pra variações do mesmo limite:</p>
+      <div class="example-box">
+        <p class="label">exemplo</p>
+        <p style="margin:0;"><span>\(\lim_{x\to0}\frac{\mathrm{sen}(5x)}{x}\)</span>: o truque é multiplicar e dividir por 5, transformando em <span>\(5\cdot\frac{\mathrm{sen}(5x)}{5x}\)</span>. Trocando <span>\(y=5x\)</span> (que também vai a 0), fica <span>\(5\cdot\lim_{y\to0}\frac{\mathrm{sen}(y)}{y} = 5\cdot1 = 5\)</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📋 Roteiro de Estudos <span class="count">guia da semana</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana2/roteiro-estudos-02.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📋</span>
+        <span class="file-meta"><span class="file-title">Roteiro de Estudos — Semana 2</span><span class="file-sub">PDF · como usar os materiais abaixo</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📖 Textos <span class="count">3 textos</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana2/limite.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 1 — O limite de uma função</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/limite-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">O limite de uma função — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/limite-propriedades.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 2 — Propriedades dos limites</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/limite-propriedades-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Propriedades dos limites — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/limite-trigonometrico.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📖</span>
+        <span class="file-meta"><span class="file-title">Texto 3 — Limite trigonométrico fundamental</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/limite-trigonometrico-solucao.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Limite trigonométrico fundamental — solução</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>🎬 Vídeos <span class="count">5 vídeos</span></h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/LKvFc3vfpJ0" title="Introdução aos Limites" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Introdução aos Limites (parte 1)</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/4XybQeeAFt8" title="Introdução aos Limites" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Introdução aos Limites (parte 2)</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/Mx8kR4mdDdE" title="Limites Racionais" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limites Racionais</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/y23ZaUb21BY" title="Limite trigonométrico fundamental" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limite trigonométrico fundamental</p>
+      </div>
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/ZhB8IjKfDYw" title="Limites trigonométricos" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-title">Limites trigonométricos</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="material-section">
+    <h2>📝 Listas <span class="count">exercícios e aplicação</span></h2>
+    <div class="file-grid">
+      <a class="file-card" href="../materiais/semana2/semana_02ex.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Exercícios 02</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/semana_02ap.pdf" target="_blank" rel="noopener">
+        <span class="file-icon">📝</span>
+        <span class="file-meta"><span class="file-title">Aplicação 02</span><span class="file-sub">PDF</span></span>
+      </a>
+      <a class="file-card" href="../materiais/semana2/semana_02ap_gab.pdf" target="_blank" rel="noopener">
+        <span class="file-icon solucao">✓</span>
+        <span class="file-meta"><span class="file-title">Aplicação 02 — gabarito</span><span class="file-sub">PDF</span></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="week-footer-nav">
+    <a href="semana-1.html">← Semana 1</a>
+    <a href="semana-3.html">Semana 3 →</a>
+  </div>
+</main>
+
+<footer>
+  <p class="hand">bons estudos!</p>
+  <p>Material tirado do Moodle de Cálculo 1 (UnB, 2/2026) e do repositório público <a href="http://mat.unb.br/calculo1m/" target="_blank" rel="noopener">mat.unb.br/calculo1m</a>.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('calc1-theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('calc1-theme', next);
+  });
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
+  });
+
+  // widget 1 — o "buraco" no gráfico
+  (function(){
+    const svg = document.getElementById('holeSvg');
+    const slider = document.getElementById('xSlider1');
+    const xValue = document.getElementById('xValue1');
+    const fxValue = document.getElementById('fxValue1');
+    const W = 400, H = 320, pad = 30;
+    const xMin = 0.15, xMax = 2.45, yMin = 0, yMax = 3.4;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+    const g = x => (x*x + 2*x) / (x + 1);
+
+    let pts = [];
+    for(let x = xMin; x <= xMax; x += 0.03){ pts.push(`${sx(x)},${sy(g(x))}`); }
+
+    function draw(x){
+      const nearHole = Math.abs(x - 1) < 0.006;
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <polyline points="${pts.join(' ')}" fill="none" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(1)}" cy="${sy(1.5)}" r="5" fill="var(--paper-raised)" stroke="var(--rose)" stroke-width="2.5"/>
+        <text x="${sx(1)+8}" y="${sy(1.5)-8}" font-size="12" fill="var(--ink-soft)">furo em x=1</text>
+        ${nearHole ? '' : `<circle cx="${sx(x)}" cy="${sy(g(x))}" r="5" fill="var(--gold)"/>`}
+      `;
+      xValue.textContent = x.toFixed(2);
+      fxValue.textContent = nearHole ? 'indefinido' : g(x).toFixed(3);
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(2);
+  })();
+
+  // widget 2 — limites laterais, função degrau
+  (function(){
+    const svg = document.getElementById('stepSvg');
+    const slider = document.getElementById('xSlider2');
+    const xValue = document.getElementById('xValue2');
+    const gxValue = document.getElementById('gxValue2');
+    const sideNote = document.getElementById('sideNote2');
+    const W = 400, H = 240, pad = 30;
+    const xMin = 0.3, xMax = 3.7, yMin = -2, yMax = 2;
+    const sx = x => pad + (x - xMin) / (xMax - xMin) * (W - 2*pad);
+    const sy = y => H - pad - (y - yMin) / (yMax - yMin) * (H - 2*pad);
+
+    function draw(x){
+      const nearJump = Math.abs(x - 2) < 0.006;
+      svg.innerHTML = `
+        <line x1="${sx(xMin)}" y1="${sy(0)}" x2="${sx(xMax)}" y2="${sy(0)}" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="${sx(2)}" y1="${sy(yMin)}" x2="${sx(2)}" y2="${sy(yMax)}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="${sx(xMin)}" y1="${sy(-1)}" x2="${sx(2)}" y2="${sy(-1)}" stroke="var(--lilac)" stroke-width="2.5"/>
+        <line x1="${sx(2)}" y1="${sy(1)}" x2="${sx(xMax)}" y2="${sy(1)}" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(2)}" cy="${sy(-1)}" r="5" fill="var(--paper-raised)" stroke="var(--lilac)" stroke-width="2.5"/>
+        <circle cx="${sx(2)}" cy="${sy(1)}" r="5" fill="var(--paper-raised)" stroke="var(--lilac)" stroke-width="2.5"/>
+        ${nearJump ? '' : `<circle cx="${sx(x)}" cy="${sy(x>2?1:-1)}" r="5" fill="var(--gold)"/>`}
+      `;
+      xValue.textContent = x.toFixed(2);
+      gxValue.textContent = nearJump ? 'indefinido' : (x>2 ? '1' : '-1');
+      sideNote.textContent = nearJump ? 'exatamente em x=2 — os dois lados discordam' : (x>2 ? 'chegando por x > 2 (direita)' : 'chegando por x < 2 (esquerda)');
+    }
+    slider.addEventListener('input', () => draw(parseFloat(slider.value)));
+    draw(2.5);
+  })();
+</script>
+<script src="../glossario.js"></script>
+</body>
+</html>
